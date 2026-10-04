@@ -8,9 +8,37 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Plates">
 <title>Plates</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital@1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root { --void:#0C0B09; --group:#161410; --ink:#E9E5DC; --worn:#9B9588; --hair:#2c2924; --gilt:#C8A24B; --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif; --safe-t:env(safe-area-inset-top); --safe-b:env(safe-area-inset-bottom); }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { margin:0; background:var(--void); color:var(--ink); }
+body { font:17px/1.3 var(--ui); min-height:100dvh; padding-bottom:calc(56px + var(--safe-b)); overscroll-behavior:none; }
+main { width:min(520px,100%); margin:0 auto; padding:calc(8px + var(--safe-t)) 16px 24px; }
+.large { font:600 34px/1.05 var(--ui); letter-spacing:-.02em; margin:8px 4px 4px; }
+.sub { color:var(--worn); font-size:13px; margin:0 4px 14px; }
+.group { background:var(--group); border-radius:12px; overflow:hidden; }
+.row { display:flex; align-items:center; gap:12px; min-height:64px; padding:8px 14px; color:inherit; text-decoration:none; border-bottom:1px solid var(--hair); }
+.row:last-child { border-bottom:0; }
+.row:active { background:#221f1a; }
+.mark { width:44px; height:44px; border-radius:10px; background:#0C0B09; border:1px solid var(--hair); flex:none; overflow:hidden; }
+.mark canvas { width:100%; height:100%; border-radius:0; }
+.row b { display:block; font-weight:600; }
+.row small { color:var(--worn); font-size:13px; }
+.chev { margin-left:auto; color:var(--worn); }
+.navline { display:flex; align-items:center; min-height:44px; }
+.back { color:var(--gilt); text-decoration:none; font-size:17px; min-height:44px; display:inline-flex; align-items:center; }
+.navline span { margin:0 auto; font-weight:600; transform:translateX(-28px); }
+canvas { width:100%; aspect-ratio:1; display:block; border-radius:16px; background:#0C0B09; touch-action:none; }
+.law { font-family:"IBM Plex Serif",Georgia,serif; font-style:italic; color:var(--gilt); font-size:20px; line-height:1.35; margin:14px 4px 6px; }
+.meta { color:var(--worn); font-size:13px; margin:0 4px 8px; }
+.seg { display:flex; gap:8px; overflow:auto; margin:0 0 12px; }
+.seg button { border:0; background:var(--group); color:var(--worn); border-radius:999px; min-height:36px; padding:0 12px; font:inherit; font-size:13px; }
+.seg button[aria-pressed="true"] { background:#221f1a; color:var(--gilt); }
+.tabbar { position:fixed; left:0; right:0; bottom:0; display:flex; background:rgba(12,11,9,.92); backdrop-filter:blur(16px); border-top:1px solid var(--hair); padding-bottom:var(--safe-b); z-index:4; }
+.tabbar a { flex:1; min-height:50px; display:flex; align-items:center; justify-content:center; color:var(--worn); text-decoration:none; font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+.tabbar a[aria-current="page"] { color:var(--gilt); }
+</style>
 </head>
 <body>
 <main id="main"></main>
@@ -18,6 +46,180 @@
   <a href="/" data-nav="index">Plates</a>
   <a href="/archive" data-nav="archive">Archive</a>
 </nav>
-<script src="/app.js" defer></script>
+<script>
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const plates = [
+  {id:"20261004",family:"clifford",a:-1.4,b:1.6,c:1,d:0.7,eq:"x' = sin(ay) + c cos(ax)",status:"canon"},
+  {id:"20261004b",family:"dejong",a:1.4,b:-2.3,c:2.4,d:-2.1,eq:"x' = sin(ay) - cos(bx)",status:"draft"},
+  {id:"lace-17",family:"clifford",a:-1.7,b:1.3,c:-0.1,d:-1.2,eq:"x' = sin(ay) + c cos(ax)",status:"draft"},
+  {id:"twin-17",family:"clifford",a:1.7,b:1.7,c:0.6,d:1.2,eq:"x' = sin(ay) + c cos(ax)",status:"draft"},
+  {id:"shell-5",family:"superformula",a:5,b:0.6,c:1.4,d:1.8,eq:"r = (|cos(m\u03c6/4)|^n2 + |sin(m\u03c6/4)|^n3)^(-1/n1)",status:"draft"},
+  {id:"dust-18",family:"littlewood",a:12,b:1,c:1,d:1,eq:"p(z) = sum \u03b5k z^k, \u03b5 in {-1,+1}",status:"draft"}
+];
+const main = document.getElementById("main");
+let family = "all";
+const loops = new Set();
+function stop() { loops.forEach(id => cancelAnimationFrame(id)); loops.clear(); }
+function boot() {
+  addEventListener("popstate", render);
+  document.body.addEventListener("click", e => {
+    const a = e.target.closest("a[href]");
+    if (!a || a.origin !== location.origin) return;
+    if (a.pathname.startsWith("/p/") || a.pathname === "/" || a.pathname === "/archive") {
+      e.preventDefault();
+      history.pushState({}, "", a.pathname);
+      render();
+    }
+  });
+  render();
+}
+function render() {
+  stop();
+  const path = location.pathname.replace(/\/$/, "") || "/";
+  document.querySelectorAll("[data-nav]").forEach(a => a.removeAttribute("aria-current"));
+  if (path === "/archive") {
+    document.querySelector("[data-nav=archive]").setAttribute("aria-current", "page");
+    return archive();
+  }
+  document.querySelector("[data-nav=index]").setAttribute("aria-current", "page");
+  const id = path.startsWith("/p/") ? decodeURIComponent(path.slice(3)) : "";
+  if (id) return sheet(plates.find(p => p.id === id) || plates[0]);
+  list();
+}
+function list() {
+  document.title = "Plates";
+  main.innerHTML = `<h1 class="large">Plates</h1><p class="sub">Metanomicon · ${plates.length} · running</p><div class="group">${plates.map(p => `<a class="row" href="/p/${p.id}"><span class="mark" data-id="${p.id}"></span><span><b>${p.family}</b><small>${p.id} · ${p.status}</small></span><span class="chev">›</span></a>`).join("")}</div>`;
+  main.querySelectorAll(".mark").forEach(el => {
+    const c = document.createElement("canvas");
+    c.width = 88; c.height = 88;
+    el.appendChild(c);
+    animate(c, plates.find(p => p.id === el.dataset.id), true);
+  });
+}
+function archive() {
+  document.title = "Archive";
+  const names = ["all", ...new Set(plates.map(p => p.family))];
+  main.innerHTML = `<h1 class="large">Archive</h1><div class="seg">${names.map(n => `<button type="button" data-fam="${n}" aria-pressed="${n===family}">${n}</button>`).join("")}</div><div class="group" id="rows">${rows(family)}</div>`;
+  main.querySelectorAll("button").forEach(btn => btn.onclick = () => { family = btn.dataset.fam; archive(); });
+}
+function rows(fam) {
+  return plates.filter(p => fam==="all" || p.family===fam).map(p => `<a class="row" href="/p/${p.id}"><span><b>${p.id}</b><small>${p.family}</small></span><span class="chev">›</span></a>`).join("");
+}
+function sheet(p) {
+  document.title = p.family;
+  const edge = Math.min(800, Math.floor(Math.min(innerWidth, 520) * Math.min(devicePixelRatio || 1, 2)));
+  main.innerHTML = `<section><div class="navline"><a class="back" href="/">‹ Plates</a><span>${p.family}</span></div><canvas id="plate" width="${edge}" height="${edge}" aria-label="${p.family}"></canvas><p class="law">${p.eq}</p><p class="meta">${p.id} · ${p.status} · a ${p.a} b ${p.b} c ${p.c} d ${p.d}</p></section>`;
+  animate(document.getElementById("plate"), p, false);
+}
+function shell(ctx, w, p, frame) {
+  const m = p.a || 5, n1 = Math.abs(p.b)+0.4, n2 = Math.abs(p.c)+0.4, n3 = Math.abs(p.d)+0.4;
+  const phase = reduce ? 0 : frame * 0.01;
+  ctx.beginPath();
+  for (let i = 0; i <= 720; i++) {
+    const phi = (i / 720) * Math.PI * 2 + phase;
+    const t = Math.abs(Math.cos(m * phi / 4)) ** n2 + Math.abs(Math.sin(m * phi / 4)) ** n3;
+    const r = Math.max(0.08, Math.min(5, (t + 1e-4) ** (-1 / n1)));
+    const x = w/2 + Math.cos(phi) * r * (w * 0.16);
+    const y = w/2 + Math.sin(phi) * r * (w * 0.16);
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  }
+  ctx.lineWidth = Math.max(2.5, w / 140);
+  ctx.strokeStyle = "#E9E5DC";
+  ctx.stroke();
+  ctx.lineWidth = Math.max(1, w / 420);
+  ctx.strokeStyle = "#C8A24B";
+  ctx.stroke();
+}
+function dust(ctx, w, p, frame) {
+  if (!p._roots) p._roots = littlewood(p);
+  const rot = reduce ? 0 : frame * 0.004;
+  const c = Math.cos(rot), s = Math.sin(rot);
+  const rad = w * 0.36;
+  ctx.fillStyle = "#E9E5DC";
+  for (const z of p._roots) {
+    const x = z[0]*c - z[1]*s, y = z[0]*s + z[1]*c;
+    ctx.beginPath();
+    ctx.arc(w/2 + x * rad, w/2 + y * rad, Math.max(1.6, w / 180), 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+function littlewood(p) {
+  const deg = 12;
+  const roots = [];
+  let seed = 2166136261;
+  for (let sample = 0; sample < 36; sample++) {
+    const eps = [1];
+    for (let k = 1; k <= deg; k++) { seed = Math.imul(seed ^ (k + sample), 16777619); eps.push(seed & 1 ? 1 : -1); }
+    const z = [];
+    for (let k = 0; k < deg; k++) {
+      const a = (k + 0.5) / deg * Math.PI * 2;
+      z.push([0.7*Math.cos(a), 0.7*Math.sin(a)]);
+    }
+    for (let iter = 0; iter < 12; iter++) {
+      for (let k = 0; k < deg; k++) {
+        let pr = eps[deg], pi = 0;
+        for (let c = deg - 1; c >= 0; c--) {
+          const nr = pr*z[k][0] - pi*z[k][1], ni = pr*z[k][1] + pi*z[k][0];
+          pr = nr + eps[c]; pi = ni;
+        }
+        let dr = 1, di = 0;
+        for (let j = 0; j < deg; j++) if (j !== k) {
+          const ar = z[k][0]-z[j][0], ai = z[k][1]-z[j][1];
+          const nr = dr*ar - di*ai, ni = dr*ai + di*ar;
+          dr = nr; di = ni;
+        }
+        const den = dr*dr + di*di + 1e-9;
+        z[k][0] -= (pr*dr + pi*di) / den;
+        z[k][1] -= (pi*dr - pr*di) / den;
+      }
+    }
+    for (const r of z) if (isFinite(r[0]) && Math.hypot(r[0], r[1]) < 2.2) roots.push(r);
+  }
+  return roots;
+}
+function attractor(ctx, w, p, state) {
+  const step = () => {
+    const x = state.x, y = state.y;
+    if (p.family === "dejong") {
+      state.x = Math.sin(p.a*y) - Math.cos(p.b*x);
+      state.y = Math.sin(p.c*x) - Math.cos(p.d*y);
+    } else {
+      state.x = Math.sin(p.a*y) + p.c*Math.cos(p.a*x);
+      state.y = Math.sin(p.b*x) + p.d*Math.cos(p.b*y);
+    }
+  };
+  if (!state.ready) { for (let i = 0; i < 400; i++) step(); state.ready = 1; }
+  ctx.fillStyle = "rgba(233,229,220,0.55)";
+  for (let i = 0; i < (reduce ? 40 : 180); i++) {
+    step();
+    const px = w/2 + state.x * w * 0.22;
+    const py = w/2 + state.y * w * 0.22;
+    ctx.fillRect(px, py, Math.max(1.2, w/280), Math.max(1.2, w/280));
+  }
+}
+function animate(canvas, p, thumb) {
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width;
+  const state = { x: 0.1, y: 0.1 };
+  let frame = 0;
+  const tick = () => {
+    if (!canvas.isConnected) return;
+    if (p.family === "superformula" || p.family === "littlewood" || frame === 0) {
+      ctx.fillStyle = "#0C0B09";
+      ctx.fillRect(0, 0, w, w);
+    }
+    if (p.family === "superformula") shell(ctx, w, p, frame);
+    else if (p.family === "littlewood") dust(ctx, w, p, frame);
+    else attractor(ctx, w, p, state);
+    frame++;
+    if (reduce && frame > 1) return;
+    if (thumb && frame > 240) return;
+    const id = requestAnimationFrame(tick);
+    loops.add(id);
+  };
+  tick();
+}
+boot();
+</script>
 </body>
 </html>
