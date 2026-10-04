@@ -57,7 +57,7 @@ function rows(fam) {
 }
 function sheet(p) {
   document.title = p.family;
-  const edge = Math.min(900, Math.max(320, Math.floor(innerWidth * (devicePixelRatio || 1))));
+  const edge = Math.min(800, Math.max(320, Math.floor(innerWidth * (devicePixelRatio || 1))));
   main.innerHTML = `<section class="sheet">
     <div class="navline"><a class="back" href="/">\u2039 Plates</a><span>${p.family}</span></div>
     <canvas id="plate" width="${edge}" height="${edge}" aria-label="${p.family}"></canvas>
@@ -67,24 +67,19 @@ function sheet(p) {
   </section>`;
   animate(document.getElementById("plate"), p, false);
 }
-function superPoint(p, phi) {
-  const m = p.a || 5;
-  const n1 = Math.abs(p.b) + 0.45;
-  const n2 = Math.abs(p.c) + 0.45;
-  const n3 = Math.abs(p.d) + 0.45;
+function superPoint(m, n1, n2, n3, phi) {
   const r = Math.pow(Math.abs(Math.cos(m * phi / 4)) ** n2 + Math.abs(Math.sin(m * phi / 4)) ** n3 + 1e-4, -1 / n1);
-  const rr = Math.max(0.15, Math.min(4, r));
+  const rr = Math.max(0.12, Math.min(4.2, r));
   return [rr * Math.cos(phi), rr * Math.sin(phi)];
 }
-function dustRoots(p) {
-  const deg = Math.max(8, Math.min(14, Math.round(Math.abs(p.a)) || 12));
+function dustRoots() {
   const roots = [];
   let s = 2166136261;
-  for (let k = 0; k < 90; k++) {
+  for (let k = 0; k < 72; k++) {
     s = Math.imul(s ^ (k + 9), 16777619);
-    const ang = (k / 90) * Math.PI * 2 + ((s & 15) / 40);
-    const rad = 0.25 + ((s >>> 4) & 31) / 28;
-    roots.push([rad * Math.cos(ang), rad * Math.sin(ang)]);
+    const ang = (k / 72) * Math.PI * 2 + ((s & 15) / 30);
+    const rad = 0.22 + ((s >>> 4) & 31) / 26;
+    roots.push([rad * Math.cos(ang), rad * Math.sin(ang), k]);
   }
   return roots;
 }
@@ -92,85 +87,96 @@ function animate(canvas, p, glyph) {
   const token = ++job;
   const ctx = canvas.getContext("2d");
   const w = canvas.width, h = canvas.height;
-  const roots = p.family === "littlewood" ? dustRoots(p) : null;
-  let x = 0.1, y = 0.1, n = 0;
-  const bins = new Uint16Array(w * h);
-  const total = glyph ? 2500 : (reduce ? 20000 : 90000);
-  function attract() {
+  const roots = p.family === "littlewood" ? dustRoots() : null;
+  const herd = [0, 1, 2, 3].map(i => ({ x: 0.1 + i * 0.07, y: 0.1, trail: [] }));
+  const bend = { x: 0, y: 0 };
+  if (!glyph) {
+    canvas.onpointermove = e => {
+      const r = canvas.getBoundingClientRect();
+      bend.x = (e.clientX - r.left) / r.width - 0.5;
+      bend.y = (e.clientY - r.top) / r.height - 0.5;
+    };
+    canvas.onpointerleave = () => { bend.x = 0; bend.y = 0; };
+  }
+  function attract(s) {
+    const wobble = glyph ? 0 : Math.sin(performance.now() / 2800) * 0.08;
     if (p.family === "dejong") {
-      const nx = Math.sin(p.a * y) - Math.cos(p.b * x);
-      const ny = Math.sin(p.c * x) - Math.cos(p.d * y);
-      x = nx; y = ny;
+      s.x = Math.sin((p.a + wobble) * s.y) - Math.cos(p.b * s.x);
+      s.y = Math.sin(p.c * s.x) - Math.cos((p.d - wobble) * s.y);
     } else {
-      const nx = Math.sin(p.a * y) + p.c * Math.cos(p.a * x);
-      const ny = Math.sin(p.b * x) + p.d * Math.cos(p.b * y);
-      x = nx; y = ny;
+      s.x = Math.sin(p.a * s.y) + (p.c + wobble) * Math.cos(p.a * s.x);
+      s.y = Math.sin(p.b * s.x) + p.d * Math.cos(p.b * s.y);
     }
-    return [x, y];
   }
   function frame(t) {
     if (token !== job || !canvas.isConnected) return;
-    ctx.fillStyle = "#0C0B09";
+    ctx.fillStyle = "rgba(12,11,9,0.18)";
     ctx.fillRect(0, 0, w, h);
     if (p.family === "superformula") {
-      const spin = reduce ? 0 : t * 0.0004;
-      ctx.beginPath();
-      for (let i = 0; i <= 720; i++) {
-        const phi = i / 720 * Math.PI * 2 + spin;
-        const [sx, sy] = superPoint(p, phi);
-        const px = w / 2 + sx * w * 0.18;
-        const py = h / 2 + sy * h * 0.18;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.closePath();
-      ctx.lineWidth = glyph ? 2 : Math.max(3, w / 180);
-      ctx.strokeStyle = "#C8A24B";
-      ctx.stroke();
-      ctx.lineWidth = glyph ? 1 : Math.max(1.5, w / 420);
-      ctx.strokeStyle = "rgba(233,229,220,.55)";
-      ctx.stroke();
-    } else if (p.family === "littlewood") {
-      const spin = reduce ? 0 : t * 0.00025;
-      roots.forEach((z, i) => {
-        const ang = Math.atan2(z[1], z[0]) + spin;
-        const rad = Math.hypot(z[0], z[1]);
-        const px = w / 2 + Math.cos(ang) * rad * w * 0.38;
-        const py = h / 2 + Math.sin(ang) * rad * h * 0.38;
-        const size = glyph ? 1.6 : 3 + (i % 4);
+      const spin = reduce ? 0 : t * 0.00035;
+      const breath = 0.86 + Math.sin(t / 900) * 0.08;
+      const rings = glyph ? 2 : 4;
+      for (let ring = 0; ring < rings; ring++) {
+        const m = (p.a || 5) + ring * 0.35;
+        const n2 = Math.abs(p.c) + 0.4 + Math.sin(t / 1400 + ring) * 0.55;
+        const n3 = Math.abs(p.d) + 0.4 + Math.cos(t / 1600 + ring) * 0.55;
         ctx.beginPath();
-        ctx.fillStyle = i % 7 === 0 ? "#C8A24B" : "#E9E5DC";
-        ctx.arc(px, py, size, 0, Math.PI * 2);
+        for (let i = 0; i <= 480; i++) {
+          const phi = i / 480 * Math.PI * 2 + spin * (1 + ring * 0.15);
+          const [sx, sy] = superPoint(m, Math.abs(p.b) + 0.4, n2, n3, phi);
+          const px = w / 2 + (sx * breath + bend.x * 0.4) * w * (0.12 + ring * 0.025);
+          const py = h / 2 + (sy * breath + bend.y * 0.4) * h * (0.12 + ring * 0.025);
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.lineWidth = glyph ? 1.2 : 1.6 + ring * 0.4;
+        ctx.strokeStyle = ring === rings - 1 ? "#C8A24B" : "rgba(233,229,220," + (0.28 + ring * 0.12) + ")";
+        ctx.stroke();
+      }
+    } else if (p.family === "littlewood") {
+      const spin = reduce ? 0 : t * 0.0003;
+      const pts = roots.map((z, i) => {
+        const ang = Math.atan2(z[1], z[0]) + spin * (0.7 + (i % 5) * 0.08);
+        const rad = Math.hypot(z[0], z[1]) * (1 + Math.sin(t / 1100 + i) * 0.06);
+        return [w / 2 + Math.cos(ang) * rad * w * 0.36 + bend.x * 18, h / 2 + Math.sin(ang) * rad * h * 0.36 + bend.y * 18];
+      });
+      ctx.lineWidth = glyph ? 0.6 : 1;
+      for (let i = 0; i < pts.length; i += 3) {
+        const a = pts[i], b = pts[(i + 5) % pts.length];
+        ctx.strokeStyle = "rgba(200,162,75,0.28)";
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      }
+      const pulse = Math.floor((t / 180) % pts.length);
+      pts.forEach((q, i) => {
+        ctx.beginPath();
+        ctx.fillStyle = i === pulse ? "#C8A24B" : "#E9E5DC";
+        ctx.arc(q[0], q[1], glyph ? 1.4 : (i === pulse ? 5 : 2.4), 0, Math.PI * 2);
         ctx.fill();
       });
     } else {
-      const add = glyph ? 400 : 1800;
-      for (let i = 0; i < add && n < total; i++, n++) {
-        const xy = attract();
-        const px = ((xy[0] + 2.4) / 4.8) * (w - 16) + 8;
-        const py = ((xy[1] + 2.4) / 4.8) * (h - 16) + 8;
-        const ix = px | 0, iy = py | 0;
-        if (ix >= 0 && iy >= 0 && ix < w && iy < h) bins[iy * w + ix]++;
-      }
-      const img = ctx.getImageData(0, 0, w, h);
-      for (let i = 0; i < bins.length; i++) {
-        const k = Math.min(1, Math.log1p(bins[i]) / Math.log1p(12));
-        const o = i * 4;
-        img.data[o] = 12 + k * 210;
-        img.data[o+1] = 11 + k * 200;
-        img.data[o+2] = 9 + k * 180;
-        img.data[o+3] = 255;
-      }
-      ctx.putImageData(img, 0, 0);
-      const xy = [x, y];
-      ctx.fillStyle = "#C8A24B";
-      ctx.beginPath();
-      ctx.arc(((xy[0] + 2.4) / 4.8) * (w - 16) + 8, ((xy[1] + 2.4) / 4.8) * (h - 16) + 8, glyph ? 1.5 : 3.5, 0, Math.PI * 2);
-      ctx.fill();
+      const count = glyph ? 1 : 4;
+      herd.slice(0, count).forEach((s, i) => {
+        const steps = glyph ? 12 : 28;
+        ctx.beginPath();
+        for (let k = 0; k < steps; k++) {
+          attract(s);
+          const px = ((s.x + 2.5) / 5) * (w - 20) + 10 + bend.x * 12;
+          const py = ((s.y + 2.5) / 5) * (h - 20) + 10 + bend.y * 12;
+          if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+          s.trail.push(px, py);
+          if (s.trail.length > 80) s.trail.splice(0, 2);
+        }
+        ctx.strokeStyle = i === 0 ? "#C8A24B" : "rgba(233,229,220,0.55)";
+        ctx.lineWidth = i === 0 ? (glyph ? 1.2 : 1.8) : 1;
+        ctx.stroke();
+      });
     }
     const bar = document.querySelector(".progress span");
-    if (bar) bar.style.width = (p.family === "clifford" || p.family === "dejong" ? Math.min(100, n / total * 100) : 100) + "%";
+    if (bar) bar.style.width = "100%";
     if (!reduce) requestAnimationFrame(frame);
   }
+  ctx.fillStyle = "#0C0B09";
+  ctx.fillRect(0, 0, w, h);
   requestAnimationFrame(frame);
 }
 boot();
