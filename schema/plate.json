@@ -1,0 +1,13 @@
+{
+  "series": "equation-plates",
+  "family": "clifford",
+  "seed": "20261004",
+  "params": {"a": -1.4, "b": 1.6, "c": 1.0, "d": 0.7},
+  "iterate_count": 400000,
+  "burn_in": 1000,
+  "bins": 720,
+  "colormap": "ink",
+  "equation": "x' = sin(a*y) + c*cos(a*x); y' = sin(b*x) + d*cos(b*y)",
+  "renderer": "numpy-hist2d-v1",
+  "filename": "clifford_20261004.png"
+}
