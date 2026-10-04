@@ -1,15 +1,18 @@
 {
   "series": "equation-plates",
-  "family": "clifford",
+  "family": "dejong",
   "seed": "20261004",
-  "params": {"a": -1.4, "b": 1.6, "c": 1.0, "d": 0.7},
-  "iterate_count": 600000,
+  "params": {
+    "a": -2.033,
+    "b": -0.831,
+    "c": 0.869,
+    "d": 0.945
+  },
+  "iterate_count": 400000,
   "burn_in": 1000,
-  "bins": 700,
-  "colormap": "bone",
-  "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
-  "renderer": "render.py",
-  "filename": "plates/2026-10-04.png",
-  "bounds": {"x": [-1.4195, 1.9793], "y": [-1.3047, 1.5348]},
-  "note": "First shipped plate. Density ink on black. Reject rule: fill 30-75%, no bin over 8%."
+  "bins": 720,
+  "colormap": "ink",
+  "equation": "x' = sin(a*y) - cos(b*x); y' = sin(c*x) - cos(d*y)",
+  "renderer": "numpy-hist2d-v1",
+  "filename": "2026-10-04.png"
 }
