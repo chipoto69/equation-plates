@@ -1,0 +1,54 @@
+{
+  "series": "equation-plates",
+  "host": "plates.metanomicon.org",
+  "plates": [
+    {
+      "id": "20261004",
+      "family": "dejong",
+      "date": "2026-10-04",
+      "status": "canonical",
+      "a": -2.033,
+      "b": -0.831,
+      "c": 0.869,
+      "d": 0.945,
+      "eq": "x' = sin(ay) − cos(bx)",
+      "iter": 400000
+    },
+    {
+      "id": "clifford-lock",
+      "family": "clifford",
+      "date": "2026-10-04",
+      "status": "lock",
+      "a": -1.4,
+      "b": 1.6,
+      "c": 1.0,
+      "d": 0.7,
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 500000
+    },
+    {
+      "id": "lace-17",
+      "family": "clifford",
+      "date": "2026-10-04",
+      "status": "draft",
+      "a": -1.7,
+      "b": 1.3,
+      "c": -0.1,
+      "d": -1.2,
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 180000
+    },
+    {
+      "id": "twin-17",
+      "family": "clifford",
+      "date": "2026-10-04",
+      "status": "draft",
+      "a": 1.7,
+      "b": 1.7,
+      "c": 0.6,
+      "d": 1.2,
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 180000
+    }
+  ]
+}
