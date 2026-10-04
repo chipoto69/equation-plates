@@ -3,5 +3,13 @@
   "buildCommand": "",
   "outputDirectory": "public",
   "cleanUrls": true,
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/styles.css", "destination": "/styles.css" },
+    { "source": "/app.js", "destination": "/app.js" },
+    { "source": "/plates.json", "destination": "/plates.json" },
+    { "source": "/catalog.json", "destination": "/catalog.json" },
+    { "source": "/p/:id", "destination": "/index.html" },
+    { "source": "/archive", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
