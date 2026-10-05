@@ -49,6 +49,22 @@
       "d": 1.2,
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 180000
+    },
+    {
+      "id": "20261005",
+      "family": "superformula",
+      "seed": "20261005",
+      "title": "Septenary hold",
+      "date": "2026-10-05",
+      "status": "influx",
+      "params": {"a": 7.119, "b": 0.532, "c": 1.507, "d": 0.444},
+      "a": 7.119,
+      "b": 0.532,
+      "c": 1.507,
+      "d": 0.444,
+      "equation": "r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)",
+      "eq": "r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)",
+      "iter": 240000
     }
   ]
 }
