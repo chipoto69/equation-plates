@@ -65,6 +65,22 @@
       "equation": "r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)",
       "eq": "r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)",
       "iter": 240000
+    },
+    {
+      "id": "20261006",
+      "family": "clifford",
+      "seed": "20261006",
+      "title": "Open span",
+      "date": "2026-10-06",
+      "status": "influx",
+      "params": {"a": -1.99, "b": 1.368, "c": 1.546, "d": -1.65},
+      "a": -1.99,
+      "b": 1.368,
+      "c": 1.546,
+      "d": -1.65,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
     }
   ]
 }
