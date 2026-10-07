@@ -81,6 +81,22 @@
       "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 400000
+    },
+    {
+      "id": "20261007",
+      "family": "littlewood",
+      "seed": "20261007",
+      "title": "Sign ring",
+      "date": "2026-10-07",
+      "status": "influx",
+      "params": {"a": -2.091, "b": 1.058, "c": 2.135, "d": -2.284},
+      "a": -2.091,
+      "b": 1.058,
+      "c": 2.135,
+      "d": -2.284,
+      "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "iter": 19
     }
   ]
 }
