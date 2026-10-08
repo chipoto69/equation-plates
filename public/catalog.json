@@ -97,6 +97,22 @@
       "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
       "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
       "iter": 19
+    },
+    {
+      "id": "20261008",
+      "family": "dejong",
+      "seed": "20261008-r",
+      "title": "Second draw",
+      "date": "2026-10-08",
+      "status": "influx",
+      "params": {"a": 1.657, "b": -1.532, "c": -1.839, "d": -0.927},
+      "a": 1.657,
+      "b": -1.532,
+      "c": -1.839,
+      "d": -0.927,
+      "equation": "x' = sin(a y) − cos(b x); y' = sin(c x) − cos(d y)",
+      "eq": "x' = sin(ay) − cos(bx)",
+      "iter": 400000
     }
   ]
 }
