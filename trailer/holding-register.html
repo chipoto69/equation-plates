@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>METANOMICON · holding register</title>
+<style>
+  :root { --void:#0a0908; --gilt:#c9a227; --bone:#e8e0d0; --ink:#141210; --cyan:#7ec8c3; }
+  html,body { margin:0; background:var(--void); color:var(--bone); height:100%; }
+  body { display:grid; place-items:center; font-family:"Iowan Old Style", Palatino, Georgia, serif; }
+  #stage { width:min(100vw, calc(100vh * 16/9)); aspect-ratio:16/9; background:var(--void); position:relative; overflow:hidden; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .cap { position:absolute; left:6%; bottom:8%; letter-spacing:.22em; font-size:1.6vw; text-transform:uppercase; color:var(--gilt); }
+  .word { position:absolute; inset:0; display:grid; place-items:center; font-size:6.4vw; letter-spacing:.28em; color:var(--bone); }
+  .sub { position:absolute; top:62%; width:100%; text-align:center; letter-spacing:.34em; font-size:1.3vw; color:var(--gilt); }
+  .eq { position:absolute; left:6%; top:12%; font-family:ui-monospace, Menlo, monospace; font-size:1.3vw; color:var(--bone); opacity:.9; }
+  .ledger { position:absolute; right:6%; top:14%; font-family:ui-monospace, Menlo, monospace; font-size:1.35vw; line-height:1.7; color:var(--bone); }
+  .ledger b { color:var(--cyan); font-weight:500; }
+  #scrub { position:fixed; left:0; right:0; bottom:0; width:100%; accent-color:var(--gilt); }
+</style>
+</head>
+<body>
+<div id="stage" data-composition-id="holding-register" data-duration="22.5" data-fps="30" data-width="1920" data-height="1080">
+  <canvas id="c" width="1920" height="1080"></canvas>
+  <div class="word" id="word"></div>
+  <div class="sub" id="sub"></div>
+  <div class="eq" id="eq"></div>
+  <div class="cap" id="cap"></div>
+  <div class="ledger" id="ledger"></div>
+</div>
+<input id="scrub" type="range" min="0" max="22.5" step="0.0333" value="0" />
+<script>
+const DUR = 22.5, FPS = 30;
+const A = -2.033, B = -0.831, C = 0.869, D = 0.945;
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const word = document.getElementById('word');
+const sub = document.getElementById('sub');
+const eq = document.getElementById('eq');
+const cap = document.getElementById('cap');
+const ledger = document.getElementById('ledger');
+const pts = [];
+(function build() {
+  let x = 0.1, y = 0.1;
+  for (let i = 0; i < 800; i++) { const nx = Math.sin(A * y) - Math.cos(B * x); const ny = Math.sin(C * x) - Math.cos(D * y); x = nx; y = ny; }
+  for (let i = 0; i < 48000; i++) { const nx = Math.sin(A * y) - Math.cos(B * x); const ny = Math.sin(C * x) - Math.cos(D * y); x = nx; y = ny; pts.push(x, y); }
+})();
+function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function seg(t, a, b) { return clamp((t - a) / (b - a), 0, 1); }
+function counters(t) {
+  const names = ['density', 'gilt', 'stagger', 'chrome', 'hold', 'seed'];
+  const start = 12.2;
+  return names.map((name, i) => {
+    const fall = seg(t, start + i * 0.55, start + i * 0.55 + 0.7);
+    const n = Math.ceil(3 * (1 - fall));
+    return { name, n: t < start ? 3 : n };
+  });
+}
+function seek(t) {
+  t = clamp(t, 0, DUR);
+  ctx.fillStyle = '#0a0908';
+  ctx.fillRect(0, 0, 1920, 1080);
+  word.textContent = ''; sub.textContent = ''; eq.textContent = ''; cap.textContent = ''; ledger.innerHTML = '';
+  if (t < 4.2) {
+    const p = seg(t, 0.2, 1.4);
+    ctx.strokeStyle = '#c9a227'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(960, 540, 220 * p, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p); ctx.stroke();
+    ctx.beginPath(); ctx.arc(960, 540, 228, 0.4, 1.1); ctx.stroke();
+    word.textContent = 'METANOMICON';
+    word.style.opacity = seg(t, 1.1, 1.6);
+    sub.textContent = t > 2.4 ? 'HOLDING REGISTER' : '';
+    cap.textContent = '';
+  } else if (t < 8.4) {
+    ctx.strokeStyle = '#8a7344'; ctx.lineWidth = 18;
+    ctx.strokeRect(280, 160, 1360, 760);
+    ctx.strokeStyle = '#c9a227'; ctx.lineWidth = 1;
+    ctx.strokeRect(310, 190, 1300, 700);
+    cap.textContent = 'BRASS ON IRON';
+    sub.textContent = 'the plate is already engraved';
+  } else if (t < 13.2) {
+    const n = Math.floor(seg(t, 8.4, 12.4) * (pts.length / 2));
+    ctx.fillStyle = '#c9a227';
+    for (let i = 0; i < n; i += 3) {
+      const x = 960 + pts[i * 2] * 220;
+      const y = 540 + pts[i * 2 + 1] * 220;
+      ctx.globalAlpha = 0.35; ctx.fillRect(x, y, 1.2, 1.2);
+    }
+    ctx.globalAlpha = 1;
+    eq.textContent = "x' = sin(a y) − cos(b x)\ny' = sin(c x) − cos(d y)\na=−2.033  b=−0.831  c=0.869  d=0.945";
+    cap.textContent = 'INIT · plate 20261004 · de Jong';
+  } else if (t < 18.4) {
+    const rows = counters(t);
+    ledger.innerHTML = rows.map(r => r.name + '  <b>' + r.n + '</b>').join('<br>');
+    cap.textContent = rows.every(r => r.n === 0) ? 'STOP WHEN EVERY COUNTER IS ZERO' : 'VERIFIER';
+    word.textContent = '';
+  } else {
+    word.textContent = 'METANOMICON';
+    word.style.fontSize = '4.6vw';
+    sub.textContent = 'INIT · IDEFIX · YDEFIX';
+    cap.textContent = 'the plate is the parameter';
+    eq.textContent = 'plates.metanomicon.org';
+    eq.style.top = '70%'; eq.style.left = '0'; eq.style.width = '100%'; eq.style.textAlign = 'center';
+  }
+  if (t < 18.4) { eq.style.top = '12%'; eq.style.left = '6%'; eq.style.width = 'auto'; eq.style.textAlign = 'left'; word.style.fontSize = '6.4vw'; }
+  window.__frame = Math.round(t * FPS);
+  window.__counters = counters(t);
+}
+window.seek = seek;
+window.__timelines = { holding: { seek } };
+const scrub = document.getElementById('scrub');
+let playing = true, t0 = performance.now();
+scrub.addEventListener('input', () => { playing = false; seek(parseFloat(scrub.value)); });
+function loop(now) {
+  if (playing) {
+    const t = ((now - t0) / 1000) % DUR;
+    scrub.value = t; seek(t);
+  }
+  requestAnimationFrame(loop);
+}
+seek(0);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
