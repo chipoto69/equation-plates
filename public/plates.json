@@ -4,5 +4,6 @@
   {"id":"lace-17","family":"clifford","seed":"lace-17","a":-1.7,"b":1.3,"c":-0.1,"d":-1.2,"eq":"x' = sin(ay) + c cos(ax)","status":"draft"},
   {"id":"twin-17","family":"clifford","seed":"twin-17","a":1.7,"b":1.7,"c":0.6,"d":1.2,"eq":"x' = sin(ay) + c cos(ax)","status":"draft"},
   {"id":"shell-5","family":"superformula","seed":"shell-5","a":5,"b":0.6,"c":1.4,"d":1.8,"eq":"r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)","status":"draft"},
-  {"id":"dust-18","family":"littlewood","seed":"dust-18","a":18,"b":1,"c":-1,"d":1,"eq":"p(z) = sum eps_k z^k, eps in {-1,+1}","status":"draft"}
+  {"id":"dust-18","family":"littlewood","seed":"dust-18","a":18,"b":1,"c":-1,"d":1,"eq":"p(z) = sum eps_k z^k, eps in {-1,+1}","status":"draft"},
+  {"id":"0000","family":"clifford","seed":"d73058","a":-2.113,"b":1.281,"c":1.412,"d":-0.616,"eq":"x' = sin(ay) + c cos(ax)","status":"epoch"}
 ]

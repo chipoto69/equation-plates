@@ -1,0 +1,22 @@
+{
+  "series": "equation-plates",
+  "family": "clifford",
+  "seed": "d73058",
+  "seed_source": "sha256(\"0000\" + \"METANOMICON\") = d730583960d2c32d736ece7c02351e32f1c66e0fd7d72b43bb7eeb42cbca3c62; seed = first 6 hex; params = render.py seed_floats over the digest; uSeed = 0xd73058/2^24",
+  "params": {
+    "a": -2.113,
+    "b": 1.281,
+    "c": 1.412,
+    "d": -0.616
+  },
+  "iterate_count": 160,
+  "burn_in": 16,
+  "bins": 900,
+  "colormap": "ink",
+  "equation": "x' = sin(a*y) + c*cos(a*x); y' = sin(b*x) + d*cos(b*y)",
+  "renderer": "relicforge",
+  "filename": "0000.png",
+  "parent_sha": "b491437152fbe42a8e0f145e55afa00a51ebb8b7",
+  "delta": "fold +1 over the plain abs-fold parent: abs(p+p)-1. x2",
+  "visual_name": "Tessera"
+}
