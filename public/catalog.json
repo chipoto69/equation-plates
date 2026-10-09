@@ -113,6 +113,22 @@
       "equation": "x' = sin(a y) − cos(b x); y' = sin(c x) − cos(d y)",
       "eq": "x' = sin(ay) − cos(bx)",
       "iter": 400000
+    },
+    {
+      "id": "20261009",
+      "family": "littlewood",
+      "seed": "20261009",
+      "title": "Ninth ring",
+      "date": "2026-10-09",
+      "status": "influx",
+      "params": {"a": -0.37, "b": -2.154, "c": -0.181, "d": 1.727},
+      "a": -0.37,
+      "b": -2.154,
+      "c": -0.181,
+      "d": 1.727,
+      "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "iter": 19
     }
   ]
 }
