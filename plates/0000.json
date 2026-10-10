@@ -9,7 +9,7 @@
     "c": 1.412,
     "d": -0.616
   },
-  "iterate_count": 1600000000,
+  "iterate_count": 1608000000,
   "burn_in": 16,
   "bins": 2048,
   "colormap": "ink",
@@ -26,6 +26,6 @@
     "backing_store": "640 on narrow (<760 css px), up to 1600 wide",
     "ledger_mix": 0.999,
     "patina_mix": 0.96,
-    "note": "iterate_count/burn_in/bins above describe the 2048x2048 offline still plates/0000.png; the live page accumulates in a feedback buffer"
+    "note": "iterate_count/burn_in/bins above describe the 2048x2048 offline still plates/0000.png: 3 workers x 500,000 orbits x 1,072 retained steps = 1,608,000,000 points (each orbit's 16 burn-in steps not counted); the live page accumulates in a feedback buffer"
   }
 }

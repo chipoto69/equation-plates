@@ -56,7 +56,7 @@ else if(gid==16){sg=min(sg,max(abs(length(g-vec2(0.,.02))-.12),dot(g-vec2(0.,.02
 else if(gid==17){sg=min(sg,SG(vec2(0.,.1),vec2(0.,-.3)));sg=min(sg,length(g-vec2(0.,.26))-.035);} // i
 else if(gid==18){sg=min(sg,SG(vec2(-.14,.1),vec2(-.14,-.3)));sg=min(sg,max(abs(length(g-vec2(0.,-.04))-.14),dot(g-vec2(0.,-.04),vec2(0.,-1))-(0.)));sg=min(sg,SG(vec2(.14,-.04),vec2(.14,-.3)));} // n
 else if(gid==19){sg=min(sg,abs(length(g-vec2(0.,-.1))-.17));} // o
-c=mix(c,ink,.11*gate*(1.-smoothstep(.2,.32,I))*(1.-smoothstep(.03-.8/cl,.03+.8/cl,sg))); // per-fragment thin mask: no stroke over thick ink
+c=mix(c,ink,.11*gate*smoothstep(.04,.08,I)*(1.-smoothstep(.2,.32,I))*(1.-smoothstep(.03-.8/cl,.03+.8/cl,sg))); // per-fragment thin band: never on empty ground, never over thick ink
 // prior-epoch register (2px off, 12%): empty while uEpoch==0
 vec2 bq=abs(FC.xy-r*.5)-(r*.5-min(r.x,r.y)*.03);
 float rd=abs(max(bq.x,bq.y)+1.2*sin(t*.5+uSeed*6.283)),hw=max(.5,min(r.x,r.y)/1800.);
