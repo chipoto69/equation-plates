@@ -195,7 +195,7 @@ try{
   function tick(){raf=0;if(dead||reduce)return;pass();present();raf=requestAnimationFrame(tick);}
   function settle(){
     raf=0;if(dead)return;
-    if(!reduce){cv.style.visibility="";raf=requestAnimationFrame(tick);return;}
+    if(!reduce){present();cv.style.visibility="";raf=requestAnimationFrame(tick);return;}
     for(let i=0;i<8&&frame<SETTLE;i++)pass();
     if(frame<SETTLE){raf=requestAnimationFrame(settle);return;}
     present();cv.style.visibility="";freeze(true);
@@ -206,7 +206,7 @@ try{
     if(raf){cancelAnimationFrame(raf);raf=0;}
     if(reduce){pointer[0]=pointer[1]=9;
       if(cv.style.visibility==="hidden")raf=requestAnimationFrame(settle);else freeze(true);}
-    else{freeze(false);cv.style.visibility="";raf=requestAnimationFrame(tick);}
+    else{freeze(false);if(cv.style.visibility==="hidden"){present();cv.style.visibility="";}raf=requestAnimationFrame(tick);} // never reveal an unpresented canvas
   });
   window.__relic={frames:()=>frame,pass,present};
   cv.addEventListener("webglcontextlost",e=>{e.preventDefault();dead=true;if(raf)cancelAnimationFrame(raf);raf=0;fallback("context lost");});
