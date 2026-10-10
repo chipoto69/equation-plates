@@ -129,6 +129,22 @@
       "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
       "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
       "iter": 19
+    },
+    {
+      "id": "20261010",
+      "family": "clifford",
+      "seed": "20261010",
+      "title": "Decad hold",
+      "date": "2026-10-10",
+      "status": "influx",
+      "params": {"a": -0.749, "b": 0.81, "c": -2.289, "d": 1.658},
+      "a": -0.749,
+      "b": 0.81,
+      "c": -2.289,
+      "d": 1.658,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
     }
   ]
 }
