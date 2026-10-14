@@ -11,7 +11,7 @@
       "b": -0.831,
       "c": 0.869,
       "d": 0.945,
-      "eq": "x' = sin(ay) − cos(bx)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
       "iter": 400000
     },
     {
@@ -110,8 +110,8 @@
       "b": -1.532,
       "c": -1.839,
       "d": -0.927,
-      "equation": "x' = sin(a y) − cos(b x); y' = sin(c x) − cos(d y)",
-      "eq": "x' = sin(ay) − cos(bx)",
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
       "iter": 400000
     },
     {
@@ -190,6 +190,22 @@
       "b": -1.941,
       "c": 1.936,
       "d": 0.68,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261014",
+      "family": "clifford",
+      "seed": "20261014",
+      "title": "Fourteenth hold",
+      "date": "2026-10-14",
+      "status": "influx",
+      "params": {"a": -1.069, "b": 0.831, "c": 2.062, "d": 2.377},
+      "a": -1.069,
+      "b": 0.831,
+      "c": 2.062,
+      "d": 2.377,
       "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 400000
