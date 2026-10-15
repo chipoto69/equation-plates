@@ -209,6 +209,22 @@
       "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 400000
+    },
+    {
+      "id": "20261015",
+      "family": "dejong",
+      "seed": "20261015",
+      "title": "Fifteenth draw",
+      "date": "2026-10-15",
+      "status": "influx",
+      "params": {"a": 2.072, "b": -1.508, "c": -0.095, "d": 1.600},
+      "a": 2.072,
+      "b": -1.508,
+      "c": -0.095,
+      "d": 1.600,
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
+      "iter": 400000
     }
   ]
 }
