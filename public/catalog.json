@@ -343,6 +343,27 @@
       "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 400000
+    },
+    {
+      "id": "20261019",
+      "family": "clifford",
+      "seed": "20261019",
+      "title": "Nineteenth hold",
+      "date": "2026-10-19",
+      "status": "influx",
+      "params": {
+        "a": -1.737,
+        "b": 1.48,
+        "c": -1.597,
+        "d": 0.829
+      },
+      "a": -1.737,
+      "b": 1.48,
+      "c": -1.597,
+      "d": 0.829,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
     }
   ]
 }
