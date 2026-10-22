@@ -406,6 +406,27 @@
       "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 400000
+    },
+    {
+      "id": "20261022",
+      "family": "clifford",
+      "seed": "20261022",
+      "title": "Twenty-second hold",
+      "date": "2026-10-22",
+      "status": "influx",
+      "params": {
+        "a": 1.462,
+        "b": -2.169,
+        "c": -2.303,
+        "d": 0.858
+      },
+      "a": 1.462,
+      "b": -2.169,
+      "c": -2.303,
+      "d": 0.858,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
     }
   ]
 }
