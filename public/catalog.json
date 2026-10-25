@@ -11,7 +11,7 @@
       "b": -0.831,
       "c": 0.869,
       "d": 0.945,
-      "eq": "x' = sin(ay) − cos(bx)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
       "iter": 400000
     },
     {
@@ -130,8 +130,8 @@
       "b": -1.532,
       "c": -1.839,
       "d": -0.927,
-      "equation": "x' = sin(a y) − cos(b x); y' = sin(c x) − cos(d y)",
-      "eq": "x' = sin(ay) − cos(bx)",
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
       "iter": 400000
     },
     {
@@ -277,8 +277,8 @@
       "b": -1.508,
       "c": -0.095,
       "d": 1.6,
-      "equation": "x' = sin(a y) − cos(b x); y' = sin(c x) − cos(d y)",
-      "eq": "x' = sin(ay) − cos(bx)",
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
       "iter": 400000
     },
     {
@@ -319,8 +319,8 @@
       "b": -1.824,
       "c": -0.757,
       "d": -1.138,
-      "equation": "x' = sin(a y) − cos(b x); y' = sin(c x) − cos(d y)",
-      "eq": "x' = sin(ay) − cos(bx)",
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
       "iter": 400000
     },
     {
@@ -466,6 +466,27 @@
       "b": -1.698,
       "c": 2.08,
       "d": -1.106,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261025",
+      "family": "clifford",
+      "seed": "20261025",
+      "title": "Twenty-fifth hold",
+      "date": "2026-10-25",
+      "status": "influx",
+      "params": {
+        "a": -0.379,
+        "b": 1.402,
+        "c": -1.521,
+        "d": 1.097
+      },
+      "a": -0.379,
+      "b": 1.402,
+      "c": -1.521,
+      "d": 1.097,
       "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
       "eq": "x' = sin(ay) + c cos(ax)",
       "iter": 400000
