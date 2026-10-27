@@ -1,1 +1,537 @@
-{FULL_CONTENT_PLACEHOLDER}
+{
+  "series": "equation-plates",
+  "host": "plates.metanomicon.org",
+  "plates": [
+    {
+      "id": "20261004",
+      "family": "dejong",
+      "date": "2026-10-04",
+      "status": "canonical",
+      "a": -2.033,
+      "b": -0.831,
+      "c": 0.869,
+      "d": 0.945,
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
+      "iter": 400000
+    },
+    {
+      "id": "clifford-lock",
+      "family": "clifford",
+      "date": "2026-10-04",
+      "status": "lock",
+      "a": -1.4,
+      "b": 1.6,
+      "c": 1.0,
+      "d": 0.7,
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 500000
+    },
+    {
+      "id": "lace-17",
+      "family": "clifford",
+      "date": "2026-10-04",
+      "status": "draft",
+      "a": -1.7,
+      "b": 1.3,
+      "c": -0.1,
+      "d": -1.2,
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 180000
+    },
+    {
+      "id": "twin-17",
+      "family": "clifford",
+      "date": "2026-10-04",
+      "status": "draft",
+      "a": 1.7,
+      "b": 1.7,
+      "c": 0.6,
+      "d": 1.2,
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 180000
+    },
+    {
+      "id": "20261005",
+      "family": "superformula",
+      "seed": "20261005",
+      "title": "Septenary hold",
+      "date": "2026-10-05",
+      "status": "influx",
+      "params": {
+        "a": 7.119,
+        "b": 0.532,
+        "c": 1.507,
+        "d": 0.444
+      },
+      "a": 7.119,
+      "b": 0.532,
+      "c": 1.507,
+      "d": 0.444,
+      "equation": "r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)",
+      "eq": "r = (|cos(m phi/4)|^n2 + |sin(m phi/4)|^n3)^(-1/n1)",
+      "iter": 240000
+    },
+    {
+      "id": "20261006",
+      "family": "clifford",
+      "seed": "20261006",
+      "title": "Open span",
+      "date": "2026-10-06",
+      "status": "influx",
+      "params": {
+        "a": -1.99,
+        "b": 1.368,
+        "c": 1.546,
+        "d": -1.65
+      },
+      "a": -1.99,
+      "b": 1.368,
+      "c": 1.546,
+      "d": -1.65,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261007",
+      "family": "littlewood",
+      "seed": "20261007",
+      "title": "Sign ring",
+      "date": "2026-10-07",
+      "status": "influx",
+      "params": {
+        "a": -2.091,
+        "b": 1.058,
+        "c": 2.135,
+        "d": -2.284
+      },
+      "a": -2.091,
+      "b": 1.058,
+      "c": 2.135,
+      "d": -2.284,
+      "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "iter": 19
+    },
+    {
+      "id": "20261008",
+      "family": "dejong",
+      "seed": "20261008-r",
+      "title": "Second draw",
+      "date": "2026-10-08",
+      "status": "influx",
+      "params": {
+        "a": 1.657,
+        "b": -1.532,
+        "c": -1.839,
+        "d": -0.927
+      },
+      "a": 1.657,
+      "b": -1.532,
+      "c": -1.839,
+      "d": -0.927,
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
+      "iter": 400000
+    },
+    {
+      "id": "20261009",
+      "family": "littlewood",
+      "seed": "20261009",
+      "title": "Ninth ring",
+      "date": "2026-10-09",
+      "status": "influx",
+      "params": {
+        "a": -0.37,
+        "b": -2.154,
+        "c": -0.181,
+        "d": 1.727
+      },
+      "a": -0.37,
+      "b": -2.154,
+      "c": -0.181,
+      "d": 1.727,
+      "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "iter": 19
+    },
+    {
+      "id": "20261010",
+      "family": "clifford",
+      "seed": "20261010",
+      "title": "Decad hold",
+      "date": "2026-10-10",
+      "status": "influx",
+      "params": {
+        "a": -0.749,
+        "b": 0.81,
+        "c": -2.289,
+        "d": 1.658
+      },
+      "a": -0.749,
+      "b": 0.81,
+      "c": -2.289,
+      "d": 1.658,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261011",
+      "family": "littlewood",
+      "seed": "20261011",
+      "title": "Eleventh ring",
+      "date": "2026-10-11",
+      "status": "influx",
+      "params": {
+        "a": -0.767,
+        "b": -0.81,
+        "c": -2.226,
+        "d": -0.709
+      },
+      "a": -0.767,
+      "b": -0.81,
+      "c": -2.226,
+      "d": -0.709,
+      "equation": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "eq": "p(z) = sum eps_k z^k, eps in {-1,+1}",
+      "iter": 19
+    },
+    {
+      "id": "20261012",
+      "family": "clifford",
+      "seed": "20261012",
+      "title": "Twelfth hold",
+      "date": "2026-10-12",
+      "status": "influx",
+      "params": {
+        "a": 1.864,
+        "b": -2.383,
+        "c": 1.42,
+        "d": 1.879
+      },
+      "a": 1.864,
+      "b": -2.383,
+      "c": 1.42,
+      "d": 1.879,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261013",
+      "family": "clifford",
+      "seed": "20261013-r",
+      "title": "Thirteenth hold",
+      "date": "2026-10-13",
+      "status": "influx",
+      "params": {
+        "a": -1.838,
+        "b": -1.941,
+        "c": 1.936,
+        "d": 0.68
+      },
+      "a": -1.838,
+      "b": -1.941,
+      "c": 1.936,
+      "d": 0.68,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261014",
+      "family": "clifford",
+      "seed": "20261014",
+      "title": "Fourteenth hold",
+      "date": "2026-10-14",
+      "status": "influx",
+      "params": {
+        "a": -1.069,
+        "b": 0.831,
+        "c": 2.062,
+        "d": 2.377
+      },
+      "a": -1.069,
+      "b": 0.831,
+      "c": 2.062,
+      "d": 2.377,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261015",
+      "family": "dejong",
+      "seed": "20261015",
+      "title": "Fifteenth draw",
+      "date": "2026-10-15",
+      "status": "influx",
+      "params": {
+        "a": 2.072,
+        "b": -1.508,
+        "c": -0.095,
+        "d": 1.6
+      },
+      "a": 2.072,
+      "b": -1.508,
+      "c": -0.095,
+      "d": 1.6,
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
+      "iter": 400000
+    },
+    {
+      "id": "20261016",
+      "family": "clifford",
+      "seed": "20261016",
+      "title": "Sixteenth hold",
+      "date": "2026-10-16",
+      "status": "influx",
+      "params": {
+        "a": 2.368,
+        "b": -0.726,
+        "c": 2.134,
+        "d": 1.441
+      },
+      "a": 2.368,
+      "b": -0.726,
+      "c": 2.134,
+      "d": 1.441,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261017",
+      "family": "dejong",
+      "seed": "20261017",
+      "title": "Seventeenth draw",
+      "date": "2026-10-17",
+      "status": "influx",
+      "params": {
+        "a": -1.049,
+        "b": -1.824,
+        "c": -0.757,
+        "d": -1.138
+      },
+      "a": -1.049,
+      "b": -1.824,
+      "c": -0.757,
+      "d": -1.138,
+      "equation": "x' = sin(a y) \u2212 cos(b x); y' = sin(c x) \u2212 cos(d y)",
+      "eq": "x' = sin(ay) \u2212 cos(bx)",
+      "iter": 400000
+    },
+    {
+      "id": "20261018",
+      "family": "clifford",
+      "seed": "20261018",
+      "title": "Eighteenth hold",
+      "date": "2026-10-18",
+      "status": "influx",
+      "params": {
+        "a": 2.125,
+        "b": 1.996,
+        "c": 1.3,
+        "d": 1.216
+      },
+      "a": 2.125,
+      "b": 1.996,
+      "c": 1.3,
+      "d": 1.216,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261019",
+      "family": "clifford",
+      "seed": "20261019",
+      "title": "Nineteenth hold",
+      "date": "2026-10-19",
+      "status": "influx",
+      "params": {
+        "a": -1.737,
+        "b": 1.48,
+        "c": -1.597,
+        "d": 0.829
+      },
+      "a": -1.737,
+      "b": 1.48,
+      "c": -1.597,
+      "d": 0.829,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261020",
+      "family": "clifford",
+      "seed": "20261020",
+      "title": "Twentieth hold",
+      "date": "2026-10-20",
+      "status": "influx",
+      "params": {
+        "a": -1.003,
+        "b": -0.977,
+        "c": -1.973,
+        "d": -1.866
+      },
+      "a": -1.003,
+      "b": -0.977,
+      "c": -1.973,
+      "d": -1.866,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261021",
+      "family": "clifford",
+      "seed": "20261021",
+      "title": "Twenty-first hold",
+      "date": "2026-10-21",
+      "status": "influx",
+      "params": {
+        "a": -1.789,
+        "b": -1.573,
+        "c": -0.502,
+        "d": -0.697
+      },
+      "a": -1.789,
+      "b": -1.573,
+      "c": -0.502,
+      "d": -0.697,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261022",
+      "family": "clifford",
+      "seed": "20261022",
+      "title": "Twenty-second hold",
+      "date": "2026-10-22",
+      "status": "influx",
+      "params": {
+        "a": 1.462,
+        "b": -2.169,
+        "c": -2.303,
+        "d": 0.858
+      },
+      "a": 1.462,
+      "b": -2.169,
+      "c": -2.303,
+      "d": 0.858,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261023",
+      "family": "clifford",
+      "seed": "20261023",
+      "title": "Twenty-third hold",
+      "date": "2026-10-23",
+      "status": "influx",
+      "params": {
+        "a": -1.812,
+        "b": 1.7,
+        "c": 1.948,
+        "d": 1.026
+      },
+      "a": -1.812,
+      "b": 1.7,
+      "c": 1.948,
+      "d": 1.026,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261024",
+      "family": "clifford",
+      "seed": "20261024",
+      "title": "Twenty-fourth hold",
+      "date": "2026-10-24",
+      "status": "influx",
+      "params": {
+        "a": 1.305,
+        "b": -1.698,
+        "c": 2.08,
+        "d": -1.106
+      },
+      "a": 1.305,
+      "b": -1.698,
+      "c": 2.08,
+      "d": -1.106,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261025",
+      "family": "clifford",
+      "seed": "20261025",
+      "title": "Twenty-fifth hold",
+      "date": "2026-10-25",
+      "status": "influx",
+      "params": {
+        "a": -0.379,
+        "b": 1.402,
+        "c": -1.521,
+        "d": 1.097
+      },
+      "a": -0.379,
+      "b": 1.402,
+      "c": -1.521,
+      "d": 1.097,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261026",
+      "family": "clifford",
+      "seed": "20261026",
+      "title": "Twenty-sixth hold",
+      "date": "2026-10-26",
+      "status": "influx",
+      "params": {
+        "a": 0.814,
+        "b": -1.926,
+        "c": -1.256,
+        "d": -1.837
+      },
+      "a": 0.814,
+      "b": -1.926,
+      "c": -1.256,
+      "d": -1.837,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    },
+    {
+      "id": "20261027",
+      "family": "clifford",
+      "seed": "20261027",
+      "title": "Twenty-seventh hold",
+      "date": "2026-10-27",
+      "status": "influx",
+      "params": {
+        "a": 1.344,
+        "b": -1.109,
+        "c": 0.832,
+        "d": -2.204
+      },
+      "a": 1.344,
+      "b": -1.109,
+      "c": 0.832,
+      "d": -2.204,
+      "equation": "x' = sin(a y) + c cos(a x); y' = sin(b x) + d cos(b y)",
+      "eq": "x' = sin(ay) + c cos(ax)",
+      "iter": 400000
+    }
+  ]
+}
